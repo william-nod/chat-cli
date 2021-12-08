@@ -1,9 +1,7 @@
 package com.gummy.corp;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Main {
@@ -19,14 +17,25 @@ public class Main {
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
-//        String opening = "Welcome to chat-cli - anda terhubung dengan client";
-//        out.println(opening);
-//        out.flush();
-//        String opener = in.readLine();
-//        System.out.println(opener);
+        // Pesan pembuka pada startup app - Login Application dan Memasuki Room
+        String opening = "Welcome to chat-cli - anda akan terhubung dengan server";
+        String unamePrompt = "Mohon masukkan username chat-cli : ";
+        String roomPrompt = "Mohon masukkan kode room chat-cli : ";
+        System.out.println(opening);
+        System.out.print(unamePrompt);
+        String username = sc.nextLine();
+        System.out.print(roomPrompt);
+        String room = sc.nextLine();
+
 
         // Multithread objek untuk mengirim dan menerima pesan
         Thread kirim = new Thread(() -> {
+            try {
+                out.writeUTF(username);
+                out.writeUTF(room);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             while (true) {
                 String pesan = sc.nextLine();
                 try {
