@@ -29,29 +29,42 @@ public class Main {
 
 
         // Multithread objek untuk mengirim dan menerima pesan
-        Thread kirim = new Thread(() -> {
-            try {
-                out.writeUTF(username);
-                out.writeUTF(room);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            while (true) {
-                String pesan = sc.nextLine();
+        // Thread untuk mengirim pesan
+        Thread kirim = new Thread(new Runnable() {
+            @Override
+            public void run() {
                 try {
-                    out.writeUTF(pesan);
+                    out.writeUTF(username);
+                    out.writeUTF(room);
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+
+                while (true) {
+                    String pesan = sc.nextLine();
+                    try {
+                        out.writeUTF(pesan);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
-        Thread terima = new Thread(() -> {
-            try {
-                String pesan = in.readUTF();
-                System.out.println(pesan);
-            } catch (IOException e) {
-                e.printStackTrace();
+        // Thread untuk menerima Pesan
+        Thread terima = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                while (true) {
+                    try {
+                        String msg = in.readUTF();
+                        System.out.println(msg);
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 
