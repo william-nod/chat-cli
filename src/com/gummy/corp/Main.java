@@ -8,6 +8,7 @@ public class Main {
     // Inisialisasi ip dan port
     public static final int port = 3000;
     public static final String ip = "127.0.0.1";
+    public static Boolean isLoggedOut = false;
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -17,15 +18,14 @@ public class Main {
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
-        // Pesan pembuka pada startup app - Login Application dan Memasuki Room
+        // Opening Aplikasi
         String opening = "Welcome to chat-cli - anda akan terhubung dengan server";
         String unamePrompt = "Mohon masukkan username chat-cli : ";
-        String roomPrompt = "Mohon masukkan kode room chat-cli : ";
         System.out.println(opening);
+        System.out.println("Ketikkan #hint untuk melihat command");
         System.out.print(unamePrompt);
         String username = sc.nextLine();
-        System.out.print(roomPrompt);
-        String room = sc.nextLine();
+
 
 
         // Multithread objek untuk mengirim dan menerima pesan
@@ -35,12 +35,14 @@ public class Main {
             public void run() {
                 try {
                     out.writeUTF(username);
-                    out.writeUTF(room);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 while (true) {
+                    if (isLoggedOut) {
+                        break;
+                    }
                     String pesan = sc.nextLine();
                     try {
                         out.writeUTF(pesan);
@@ -59,6 +61,15 @@ public class Main {
                 while (true) {
                     try {
                         String msg = in.readUTF();
+                        if (msg.equals("Close Connection")) {
+                            System.out.println("Anda telah keluar aplikasi");
+                            socket.close();
+                            in.close();
+                            out.close();
+                            System.exit(0);
+                            isLoggedOut = true;
+                            break;
+                        }
                         System.out.println(msg);
                     } catch (IOException e) {
 
