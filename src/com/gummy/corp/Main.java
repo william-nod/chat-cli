@@ -26,8 +26,6 @@ public class Main {
         System.out.print(unamePrompt);
         String username = sc.nextLine();
 
-
-
         // Multithread objek untuk mengirim dan menerima pesan
         // Thread untuk mengirim pesan
         Thread kirim = new Thread(new Runnable() {
