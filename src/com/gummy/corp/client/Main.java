@@ -1,4 +1,4 @@
-package com.gummy.corp;
+package com.gummy.corp.client;
 
 import java.io.*;
 import java.net.Socket;
