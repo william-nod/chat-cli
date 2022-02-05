@@ -13,8 +13,8 @@ This app containing two folder
 
 <br>
 You can watch the application demo below.
+<br>
 
-
-
+https://raw.githubusercontent.com/william-nod/chat-cli/master/images/2022-02-05%2019-26-05.mp4
 
 
