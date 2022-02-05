@@ -14,5 +14,4 @@ This app containing two folder
 <br>
 You can watch the application demo below.
 <br>
-
-Uploading 2022-02-05 19-26-05.mp4…
+https://user-images.githubusercontent.com/59714670/152642878-8bdc32e3-8c1a-4f0b-a335-c3abc066e2f0.mp4
